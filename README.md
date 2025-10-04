@@ -170,7 +170,7 @@ npm run dev
 Este proyecto fue desarrollado como prueba técnica.
 
 ## 👨‍💻 Desarrollador
-
+Jefferson Alexis Pozo Bohórquez
 Desarrollado con ❤️ usando React + TypeScript + Vite
 
 ---
