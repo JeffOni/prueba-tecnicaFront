@@ -10,24 +10,24 @@ export const authService = {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    username: credentials.username,
-                    password: credentials.password,
-                    expiresInMins: 30 // opcional pero recomendado
+                    username: credentials.username.trim(),
+                    password: credentials.password.trim(),
+                    expiresInMins: 30
                 })
             });
 
             if (!response.ok) {
-                const errorData = await response.json().catch(() => ({}));
-                console.error('Login error:', errorData);
-                throw new Error(errorData.message || "Credenciales inválidas");
+                throw new Error("Usuario o contraseña incorrectos");
             }
 
             const data: AuthResponse = await response.json();
             localStorage.setItem('token', data.accessToken);
             return data;
         } catch (error) {
-            console.error('Login request failed:', error);
-            throw error;
+            if (error instanceof Error) {
+                throw error;
+            }
+            throw new Error("Error al iniciar sesión. Por favor, intenta nuevamente.");
         }
     },
     logout(): void {

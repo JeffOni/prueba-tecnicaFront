@@ -9,6 +9,7 @@ export const Login: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [touched, setTouched] = useState({ username: false, password: false });
     const [showPassword, setShowPassword] = useState(false);
+    const [shake, setShake] = useState(false);
 
     const { login, loading } = useAuth();
     const navigate = useNavigate();
@@ -20,10 +21,13 @@ export const Login: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setError(null);
+        setShake(false);
         setTouched({ username: true, password: true });
 
         if (!isFormValid) {
             setError('Por favor completa todos los campos');
+            setShake(true);
+            setTimeout(() => setShake(false), 500);
             return;
         }
 
@@ -32,6 +36,15 @@ export const Login: React.FC = () => {
             navigate("/products");
         } catch (error) {
             setError("Credenciales inválidas. Por favor, verifica tus datos.");
+            setShake(true);
+            setTimeout(() => setShake(false), 500);
+        }
+    };
+
+    // Permitir submit con Enter
+    const handleKeyPress = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter' && !loading && isFormValid) {
+            handleSubmit(e as any);
         }
     };
 
@@ -42,6 +55,7 @@ export const Login: React.FC = () => {
     const showUsernameError = touched.username && !isUsernameValid;
     const showPasswordError = touched.password && !isPasswordValid;
 
+    // Partículas pequeñas flotantes
     const FloatingParticle = ({ delay = 0, duration = 3 }: { delay?: number; duration?: number }) => (
         <motion.div
             className="absolute w-2 h-2 bg-white/20 rounded-full"
@@ -64,8 +78,105 @@ export const Login: React.FC = () => {
         />
     );
 
+    // Partículas coloridas más grandes y brillantes
+    const ColorfulOrb = ({ delay = 0 }: { delay?: number }) => {
+        const colors = ['from-purple-400/50 to-pink-400/50', 'from-blue-400/50 to-cyan-400/50', 'from-pink-400/50 to-rose-400/50'];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        const randomX = Math.random() * 100;
+        const randomY = Math.random() * 100;
+
+        return (
+            <motion.div
+                className={`absolute w-20 h-20 sm:w-32 sm:h-32 bg-gradient-to-br ${randomColor} rounded-full blur-2xl`}
+                animate={{
+                    y: [randomY, randomY - 50, randomY + 50, randomY],
+                    x: [randomX, randomX + 30, randomX - 30, randomX],
+                    scale: [1, 1.3, 0.8, 1],
+                    opacity: [0.4, 0.7, 0.4, 0.4],
+                }}
+                transition={{
+                    duration: 8,
+                    repeat: Infinity,
+                    delay,
+                    ease: "easeInOut"
+                }}
+                style={{
+                    left: `${randomX}%`,
+                    top: `${randomY}%`,
+                }}
+            />
+        );
+    };
+
+    // Estrellas brillantes (más partículas modernas)
+    const ShiningStars = ({ delay = 0 }: { delay?: number }) => {
+        const randomX = Math.random() * 100;
+        const randomY = Math.random() * 100;
+
+        return (
+            <motion.div
+                className="absolute"
+                style={{ left: `${randomX}%`, top: `${randomY}%` }}
+            >
+                <motion.div
+                    className="w-1 h-1 bg-white/40 rounded-full"
+                    animate={{
+                        scale: [0, 1.5, 0],
+                        opacity: [0, 0.8, 0],
+                    }}
+                    transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        delay,
+                        ease: "easeInOut"
+                    }}
+                />
+                {/* Rayos de la estrella (más tenues) */}
+                <motion.div
+                    className="absolute inset-0"
+                    animate={{
+                        rotate: [0, 90],
+                        scale: [0, 1.5, 0],
+                        opacity: [0, 0.6, 0],
+                    }}
+                    transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        delay,
+                        ease: "easeInOut"
+                    }}
+                >
+                    <div className="w-4 h-0.5 bg-gradient-to-r from-transparent via-white/30 to-transparent absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                    <div className="h-4 w-0.5 bg-gradient-to-b from-transparent via-white/30 to-transparent absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+                </motion.div>
+            </motion.div>
+        );
+    };
+
+    // Ondas en el fondo
+    const WaveCircle = ({ delay = 0 }: { delay?: number }) => {
+        return (
+            <motion.div
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
+                initial={{ scale: 0, opacity: 0.5 }}
+                animate={{
+                    scale: [0, 3],
+                    opacity: [0.3, 0],
+                }}
+                transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    delay,
+                    ease: "easeOut"
+                }}
+            >
+                <div className="w-32 h-32 border-2 border-white/20 rounded-full" />
+            </motion.div>
+        );
+    };
+
     return (
-        <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-2 sm:p-4">
+        <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 p-2 sm:p-4" style={{ width: '100vw', maxWidth: '100vw', overflowX: 'hidden' }}>
             {/* Gradiente animado */}
             <motion.div
                 className="absolute inset-0 opacity-50"
@@ -80,15 +191,40 @@ export const Login: React.FC = () => {
                 transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
             />
 
-            {/* Partículas */}
-            {[...Array(20)].map((_, i) => (
-                <FloatingParticle key={i} delay={i * 0.2} duration={3 + Math.random() * 2} />
+            {/* Ondas expansivas del centro */}
+            {[...Array(3)].map((_, i) => (
+                <WaveCircle key={`wave-${i}`} delay={i * 1.5} />
+            ))}
+
+            {/* Orbes coloridas grandes */}
+            {[...Array(8)].map((_, i) => (
+                <ColorfulOrb key={`orb-${i}`} delay={i * 1.2} />
+            ))}
+
+            {/* Partículas pequeñas */}
+            {[...Array(30)].map((_, i) => (
+                <FloatingParticle key={`particle-${i}`} delay={i * 0.2} duration={3 + Math.random() * 2} />
+            ))}
+
+            {/* Estrellas brillantes */}
+            {[...Array(15)].map((_, i) => (
+                <ShiningStars key={`star-${i}`} delay={i * 0.4} />
             ))}
 
             <motion.div
                 initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
+                animate={{
+                    opacity: 1,
+                    scale: 1,
+                    y: 0,
+                    x: shake ? [0, -10, 10, -10, 10, -5, 5, 0] : 0
+                }}
+                transition={{
+                    opacity: { duration: 0.5 },
+                    scale: { duration: 0.5, type: "spring", stiffness: 100 },
+                    y: { duration: 0.5 },
+                    x: { duration: 0.5 }
+                }}
                 className="relative z-10 w-full max-w-md"
             >
                 <div className="relative backdrop-blur-xl bg-white/10 rounded-3xl shadow-2xl border border-white/20 p-4 sm:p-6 overflow-hidden">
@@ -166,6 +302,7 @@ export const Login: React.FC = () => {
                                             value={username}
                                             onChange={(e) => setUsername(e.target.value)}
                                             onBlur={() => handleBlur('username')}
+                                            onKeyPress={handleKeyPress}
                                             placeholder="Ingresa tu usuario"
                                             disabled={loading}
                                             className={`w-full pl-10 sm:pl-12 pr-4 py-2.5 sm:py-3 text-sm sm:text-base bg-white/10 backdrop-blur-sm border-2 rounded-xl text-white placeholder-white/50 transition-all duration-300
@@ -220,6 +357,7 @@ export const Login: React.FC = () => {
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
                                             onBlur={() => handleBlur('password')}
+                                            onKeyPress={handleKeyPress}
                                             placeholder="Ingresa tu contraseña"
                                             disabled={loading}
                                             className={`w-full pl-10 sm:pl-12 pr-10 sm:pr-12 py-2.5 sm:py-3 text-sm sm:text-base bg-white/10 backdrop-blur-sm border-2 rounded-xl text-white placeholder-white/50 transition-all duration-300
@@ -292,7 +430,7 @@ export const Login: React.FC = () => {
                                 disabled={loading || !isFormValid}
                                 className="relative w-full py-2.5 sm:py-3 px-4 sm:px-6 overflow-hidden rounded-xl font-bold text-sm sm:text-base text-white disabled:opacity-50 disabled:cursor-not-allowed group"
                             >
-                                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 bg-[length:200%_100%] animate-[shimmer_3s_linear_infinite]" />
+                                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600" />
                                 <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity" />
                                 <div className="relative flex items-center justify-center gap-2">
                                     {loading ? (
@@ -350,13 +488,6 @@ export const Login: React.FC = () => {
                     </div>
                 </div>
             </motion.div>
-
-            <style>{`
-                @keyframes shimmer {
-                    0% { background-position: 200% 0; }
-                    100% { background-position: -200% 0; }
-                }
-            `}</style>
         </div>
     );
 };

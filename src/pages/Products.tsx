@@ -132,49 +132,51 @@ export const Products: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-indigo-50">
+        <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-indigo-50 overflow-x-hidden" style={{ width: '100vw', maxWidth: '100vw', overflowX: 'hidden', position: 'relative' }}>
             {/* Header */}
             <motion.header
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
-                className="bg-white/80 backdrop-blur-lg border-b border-purple-100 sticky top-0 z-50 shadow-sm"
+                className="bg-white/80 backdrop-blur-lg border-b border-purple-100 sticky top-0 z-50 shadow-sm overflow-x-hidden"
+                style={{ width: '100%', maxWidth: '100vw' }}
             >
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
+                <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6" style={{ maxWidth: '1280px' }}>
+                    <div className="flex items-center justify-between gap-4">
+                        <div className="flex items-center gap-3 min-w-0">
                             <motion.div
                                 whileHover={{ rotate: 360 }}
                                 transition={{ duration: 0.5 }}
-                                className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center"
+                                className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center flex-shrink-0"
                             >
                                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                                 </svg>
                             </motion.div>
-                            <div>
-                                <h1 className="text-xl font-bold text-gray-800">Productos</h1>
-                                <p className="text-sm text-gray-500">Hola, {user?.firstName}! 👋</p>
+                            <div className="min-w-0">
+                                <h1 className="text-xl sm:text-2xl font-bold text-gray-800 truncate">Productos</h1>
+                                <p className="text-sm text-gray-500 truncate">Hola, {user?.firstName}! 👋</p>
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-3">
+                        <div className="flex items-center gap-3 flex-shrink-0">
                             <motion.button
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                                 onClick={() => setIsAddModalOpen(true)}
-                                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transition-shadow"
+                                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-lg text-sm font-medium shadow-md hover:shadow-lg transition-shadow"
                             >
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                                 </svg>
                                 <span className="hidden sm:inline">Agregar Producto</span>
+                                <span className="sm:hidden">Agregar</span>
                             </motion.button>
 
                             <motion.button
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                                 onClick={handleLogout}
-                                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transition-shadow"
+                                className="flex items-center gap-2 px-3 sm:px-4 py-2 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-lg text-sm font-medium shadow-md hover:shadow-lg transition-shadow"
                             >
                                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -187,15 +189,15 @@ export const Products: React.FC = () => {
             </motion.header>
 
             {/* Main Content */}
-            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <main className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8" style={{ maxWidth: '1280px' }}>
                 {/* Search Bar */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="mb-8"
+                    className="mb-6 sm:mb-8"
                 >
-                    <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-lg border border-purple-100 p-6">
-                        <div className="flex gap-4">
+                    <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-lg border border-purple-100 p-4 sm:p-6">
+                        <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
                             <div className="flex-1 relative">
                                 <input
                                     type="text"
@@ -213,7 +215,7 @@ export const Products: React.FC = () => {
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
                                 onClick={handleSearch}
-                                className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-medium shadow-lg hover:shadow-xl transition-all"
+                                className="px-4 sm:px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl text-sm sm:text-base font-medium shadow-lg hover:shadow-xl transition-all whitespace-nowrap"
                             >
                                 Buscar
                             </motion.button>
@@ -224,7 +226,7 @@ export const Products: React.FC = () => {
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
                                     onClick={() => { setSearchQuery(""); loadProducts(); }}
-                                    className="px-6 py-3 bg-gray-200 text-gray-700 rounded-xl font-medium hover:bg-gray-300 transition-colors"
+                                    className="px-4 sm:px-6 py-3 bg-gray-200 text-gray-700 rounded-xl text-sm sm:text-base font-medium hover:bg-gray-300 transition-colors whitespace-nowrap"
                                 >
                                     Limpiar
                                 </motion.button>
@@ -232,19 +234,19 @@ export const Products: React.FC = () => {
                         </div>
 
                         {/* View Toggle */}
-                        <div className="flex items-center gap-2 mt-4 pt-4 border-t border-gray-200">
-                            <span className="text-sm font-medium text-gray-600">Vista:</span>
-                            <div className="flex gap-2">
+                        <div className="flex flex-wrap items-center gap-2 mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-gray-200">
+                            <span className="text-xs sm:text-sm font-medium text-gray-600">Vista:</span>
+                            <div className="flex gap-1.5 sm:gap-2">
                                 <motion.button
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
                                     onClick={() => setViewMode('table')}
-                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${viewMode === 'table'
+                                    className={`flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-base font-medium transition-all ${viewMode === 'table'
                                         ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md'
                                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                         }`}
                                 >
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                                     </svg>
                                     <span className="hidden sm:inline">Tabla</span>
@@ -254,12 +256,12 @@ export const Products: React.FC = () => {
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
                                     onClick={() => setViewMode('cards')}
-                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${viewMode === 'cards'
+                                    className={`flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-base font-medium transition-all ${viewMode === 'cards'
                                         ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md'
                                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                         }`}
                                 >
-                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                                     </svg>
                                     <span className="hidden sm:inline">Tarjetas</span>
@@ -308,13 +310,13 @@ export const Products: React.FC = () => {
                                     <table className="w-full">
                                         <thead className="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
                                             <tr>
-                                                <th className="px-6 py-4 text-left text-sm font-semibold">Imagen</th>
-                                                <th className="px-6 py-4 text-left text-sm font-semibold">Producto</th>
-                                                <th className="px-6 py-4 text-left text-sm font-semibold">Categoría</th>
-                                                <th className="px-6 py-4 text-left text-sm font-semibold">Precio</th>
-                                                <th className="px-6 py-4 text-left text-sm font-semibold">Rating</th>
-                                                <th className="px-6 py-4 text-left text-sm font-semibold">Stock</th>
-                                                <th className="px-6 py-4 text-center text-sm font-semibold">Acciones</th>
+                                                <th className="px-3 py-3 text-left text-xs font-semibold">Imagen</th>
+                                                <th className="px-3 py-3 text-left text-xs font-semibold">Producto</th>
+                                                <th className="hidden md:table-cell px-3 py-3 text-left text-xs font-semibold">Categoría</th>
+                                                <th className="px-3 py-3 text-left text-xs font-semibold">Precio</th>
+                                                <th className="hidden lg:table-cell px-3 py-3 text-left text-xs font-semibold">Rating</th>
+                                                <th className="hidden sm:table-cell px-3 py-3 text-left text-xs font-semibold">Stock</th>
+                                                <th className="px-3 py-3 text-center text-xs font-semibold">Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody className="divide-y divide-gray-200">
@@ -328,53 +330,53 @@ export const Products: React.FC = () => {
                                                         transition={{ delay: index * 0.05 }}
                                                         className="hover:bg-purple-50/50 transition-colors"
                                                     >
-                                                        <td className="px-6 py-4">
+                                                        <td className="px-3 py-3">
                                                             <img
                                                                 src={product.thumbnail}
                                                                 alt={product.title}
-                                                                className="w-16 h-16 object-cover rounded-xl shadow-md"
+                                                                className="w-12 h-12 object-cover rounded-lg shadow-md"
                                                             />
                                                         </td>
-                                                        <td className="px-6 py-4">
-                                                            <div className="font-medium text-gray-800">{product.title}</div>
-                                                            <div className="text-sm text-gray-500">{product.brand}</div>
+                                                        <td className="px-3 py-3">
+                                                            <div className="font-medium text-gray-800 text-sm">{product.title}</div>
+                                                            <div className="text-xs text-gray-500">{product.brand}</div>
                                                         </td>
-                                                        <td className="px-6 py-4">
-                                                            <span className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-medium">
+                                                        <td className="hidden md:table-cell px-3 py-3">
+                                                            <span className="px-2 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-medium">
                                                                 {product.category}
                                                             </span>
                                                         </td>
-                                                        <td className="px-6 py-4">
-                                                            <div className="font-bold text-green-600">${product.price.toFixed(2)}</div>
+                                                        <td className="px-3 py-3">
+                                                            <div className="font-bold text-green-600 text-sm">${product.price.toFixed(2)}</div>
                                                             {product.discountPercentage > 0 && (
                                                                 <span className="text-xs text-red-500">-{product.discountPercentage}%</span>
                                                             )}
                                                         </td>
-                                                        <td className="px-6 py-4">
+                                                        <td className="hidden lg:table-cell px-3 py-3">
                                                             {renderStars(product.rating)}
                                                         </td>
-                                                        <td className="px-6 py-4">
-                                                            <span className={`px-3 py-1 rounded-full text-xs font-medium ${product.stock > 50 ? 'bg-green-100 text-green-700' :
+                                                        <td className="hidden sm:table-cell px-3 py-3">
+                                                            <span className={`px-2 py-1 rounded-full text-xs font-medium ${product.stock > 50 ? 'bg-green-100 text-green-700' :
                                                                 product.stock > 20 ? 'bg-yellow-100 text-yellow-700' :
                                                                     'bg-red-100 text-red-700'
                                                                 }`}>
-                                                                {product.stock} unidades
+                                                                {product.stock}
                                                             </span>
                                                         </td>
-                                                        <td className="px-6 py-4 text-center">
-                                                            <div className="flex items-center justify-center gap-2">
+                                                        <td className="px-3 py-3 text-center">
+                                                            <div className="flex items-center justify-center gap-1.5">
                                                                 <motion.button
                                                                     whileHover={{ scale: 1.1 }}
                                                                     whileTap={{ scale: 0.9 }}
                                                                     onClick={() => handleViewProduct(product.id)}
-                                                                    className="inline-flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg text-sm font-medium shadow-md hover:shadow-lg transition-shadow"
+                                                                    className="inline-flex items-center gap-1 px-2 py-1.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg text-xs font-medium shadow-md hover:shadow-lg transition-shadow"
                                                                     title="Ver detalle"
                                                                 >
-                                                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                                     </svg>
-                                                                    Ver
+                                                                    <span className="hidden sm:inline">Ver</span>
                                                                 </motion.button>
                                                                 <motion.button
                                                                     whileHover={{ scale: 1.1 }}
@@ -384,13 +386,13 @@ export const Products: React.FC = () => {
                                                                         setEditingProduct(product);
                                                                         setIsEditModalOpen(true);
                                                                     }}
-                                                                    className="inline-flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-lg text-sm font-medium shadow-md hover:shadow-lg transition-shadow"
+                                                                    className="inline-flex items-center gap-1 px-2 py-1.5 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-lg text-xs font-medium shadow-md hover:shadow-lg transition-shadow"
                                                                     title="Editar producto"
                                                                 >
-                                                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                                                     </svg>
-                                                                    Editar
+                                                                    <span className="hidden sm:inline">Editar</span>
                                                                 </motion.button>
                                                             </div>
                                                         </td>
@@ -531,62 +533,66 @@ export const Products: React.FC = () => {
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            className="mt-8 flex items-center justify-between bg-white/80 backdrop-blur-lg rounded-2xl shadow-lg border border-purple-100 p-6"
+                            className="mt-8 sm:mt-5 bg-white/80 backdrop-blur-lg rounded-2xl shadow-lg border border-purple-100 p-4 sm:p-3"
                         >
-                            <div className="text-sm text-gray-600">
-                                Mostrando {((currentPage - 1) * productsPerPage) + 1} - {Math.min(currentPage * productsPerPage, total)} de {total} productos
-                            </div>
-
-                            <div className="flex items-center gap-2">
-                                <motion.button
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
-                                    disabled={currentPage === 1}
-                                    className="px-4 py-2 bg-white border-2 border-purple-200 text-purple-600 rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-purple-50 transition-colors"
-                                >
-                                    Anterior
-                                </motion.button>
-
-                                <div className="flex items-center gap-2">
-                                    {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                                        let pageNumber;
-                                        if (totalPages <= 5) {
-                                            pageNumber = i + 1;
-                                        } else if (currentPage <= 3) {
-                                            pageNumber = i + 1;
-                                        } else if (currentPage >= totalPages - 2) {
-                                            pageNumber = totalPages - 4 + i;
-                                        } else {
-                                            pageNumber = currentPage - 2 + i;
-                                        }
-
-                                        return (
-                                            <motion.button
-                                                key={pageNumber}
-                                                whileHover={{ scale: 1.1 }}
-                                                whileTap={{ scale: 0.9 }}
-                                                onClick={() => setCurrentPage(pageNumber)}
-                                                className={`w-10 h-10 rounded-lg font-medium transition-all ${currentPage === pageNumber
-                                                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
-                                                    : 'bg-white border-2 border-gray-200 text-gray-600 hover:border-purple-300'
-                                                    }`}
-                                            >
-                                                {pageNumber}
-                                            </motion.button>
-                                        );
-                                    })}
+                            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-0">
+                                <div className="text-xs sm:text-sm text-gray-600 text-center sm:text-left">
+                                    Mostrando {((currentPage - 1) * productsPerPage) + 1} - {Math.min(currentPage * productsPerPage, total)} de {total} productos
                                 </div>
 
-                                <motion.button
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
-                                    disabled={currentPage === totalPages}
-                                    className="px-4 py-2 bg-white border-2 border-purple-200 text-purple-600 rounded-lg font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-purple-50 transition-colors"
-                                >
-                                    Siguiente
-                                </motion.button>
+                                <div className="flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap">
+                                    <motion.button
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                                        disabled={currentPage === 1}
+                                        className="px-2 sm:px-4 py-1.5 sm:py-2 bg-white border-2 border-purple-200 text-purple-600 rounded-lg text-xs sm:text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-purple-50 transition-colors"
+                                    >
+                                        <span className="hidden sm:inline">Anterior</span>
+                                        <span className="sm:hidden">◀</span>
+                                    </motion.button>
+
+                                    <div className="flex items-center gap-1 sm:gap-1.5">
+                                        {Array.from({ length: Math.min(3, totalPages) }, (_, i) => {
+                                            let pageNumber;
+                                            if (totalPages <= 3) {
+                                                pageNumber = i + 1;
+                                            } else if (currentPage <= 2) {
+                                                pageNumber = i + 1;
+                                            } else if (currentPage >= totalPages - 1) {
+                                                pageNumber = totalPages - 2 + i;
+                                            } else {
+                                                pageNumber = currentPage - 1 + i;
+                                            }
+
+                                            return (
+                                                <motion.button
+                                                    key={pageNumber}
+                                                    whileHover={{ scale: 1.1 }}
+                                                    whileTap={{ scale: 0.9 }}
+                                                    onClick={() => setCurrentPage(pageNumber)}
+                                                    className={`w-8 h-8 sm:w-11 sm:h-11 rounded-lg text-xs sm:text-base font-medium transition-all ${currentPage === pageNumber
+                                                        ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
+                                                        : 'bg-white border-2 border-gray-200 text-gray-600 hover:border-purple-300'
+                                                        }`}
+                                                >
+                                                    {pageNumber}
+                                                </motion.button>
+                                            );
+                                        })}
+                                    </div>
+
+                                    <motion.button
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                                        disabled={currentPage === totalPages}
+                                        className="px-2 sm:px-4 py-1.5 sm:py-2 bg-white border-2 border-purple-200 text-purple-600 rounded-lg text-xs sm:text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed hover:bg-purple-50 transition-colors"
+                                    >
+                                        <span className="hidden sm:inline">Siguiente</span>
+                                        <span className="sm:hidden">▶</span>
+                                    </motion.button>
+                                </div>
                             </div>
                         </motion.div>
                     </>

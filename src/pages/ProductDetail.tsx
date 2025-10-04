@@ -101,7 +101,7 @@ export const ProductDetail: React.FC = () => {
 
     if (error || !product) {
         return (
-            <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-indigo-50 flex items-center justify-center p-4">
+            <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-indigo-50 flex items-center justify-center p-4 overflow-x-hidden" style={{ width: '100vw', maxWidth: '100vw', overflowX: 'hidden' }}>
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -128,14 +128,15 @@ export const ProductDetail: React.FC = () => {
     }
 
     return (
-        <div className="h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-indigo-50 flex flex-col overflow-hidden">
+        <div className="h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-indigo-50 flex flex-col overflow-hidden overflow-x-hidden" style={{ width: '100vw', maxWidth: '100vw', overflowX: 'hidden', position: 'relative' }}>
             {/* Header Navigation */}
             <motion.header
                 initial={{ y: -100 }}
                 animate={{ y: 0 }}
-                className="bg-white/90 backdrop-blur-md border-b border-purple-100 z-50 shadow-sm flex-shrink-0"
+                className="bg-white/90 backdrop-blur-md border-b border-purple-100 z-50 shadow-sm flex-shrink-0 overflow-x-hidden"
+                style={{ width: '100%', maxWidth: '100vw' }}
             >
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+                <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 py-3" style={{ maxWidth: '1280px' }}>
                     <div className="flex items-center justify-between">
                         <motion.button
                             whileHover={{ scale: 1.05, x: -5 }}
@@ -179,8 +180,8 @@ export const ProductDetail: React.FC = () => {
             </motion.header>
 
             {/* Main Content */}
-            <main className="flex-1 overflow-hidden">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full py-4">
+            <main className="flex-1 overflow-hidden overflow-x-hidden" style={{ width: '100%', maxWidth: '100vw' }}>
+                <div className="w-full mx-auto px-4 sm:px-6 lg:px-8 h-full py-4" style={{ maxWidth: '1280px' }}>
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -190,16 +191,11 @@ export const ProductDetail: React.FC = () => {
                             {/* Left Side - Image Gallery */}
                             <div className="p-6 bg-gray-50 flex flex-col min-h-0">
                                 {/* Main Image */}
-                                <motion.div
-                                    key={selectedImage}
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    className="relative flex-1 rounded-xl overflow-hidden bg-white shadow-lg mb-3 min-h-0"
-                                >
+                                <div className="relative flex-1 rounded-xl overflow-hidden bg-white shadow-lg mb-3 min-h-0">
                                     <img
                                         src={product.images[selectedImage]}
                                         alt={product.title}
-                                        className="w-full h-full object-contain p-3"
+                                        className="w-full h-full object-contain p-3 transition-opacity duration-200"
                                     />
 
                                     {/* Navigation Arrows */}
@@ -209,7 +205,7 @@ export const ProductDetail: React.FC = () => {
                                                 whileHover={{ scale: 1.1 }}
                                                 whileTap={{ scale: 0.9 }}
                                                 onClick={() => setSelectedImage(i => (i === 0 ? product.images.length - 1 : i - 1))}
-                                                className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/95 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:bg-white transition-colors"
+                                                className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/95 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center z-10"
                                             >
                                                 <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -220,7 +216,7 @@ export const ProductDetail: React.FC = () => {
                                                 whileHover={{ scale: 1.1 }}
                                                 whileTap={{ scale: 0.9 }}
                                                 onClick={() => setSelectedImage(i => (i === product.images.length - 1 ? 0 : i + 1))}
-                                                className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/95 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:bg-white transition-colors"
+                                                className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/95 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center z-10"
                                             >
                                                 <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -228,7 +224,7 @@ export const ProductDetail: React.FC = () => {
                                             </motion.button>
                                         </>
                                     )}
-                                </motion.div>
+                                </div>
 
                                 {/* Thumbnails */}
                                 <div className="grid grid-cols-4 gap-2 flex-shrink-0">
