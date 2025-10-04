@@ -11,10 +11,12 @@ export const productService = {
      */
     async getProducts(limit: number = 10, skip: number = 0): Promise<ProductsResponse> {
         try {
+            const token = authService.getToken();
             const response = await fetch(
                 `${API_URL}/products?limit=${limit}&skip=${skip}`,
                 {
                     headers: {
+                        'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json'
                     }
                 }
@@ -38,8 +40,10 @@ export const productService = {
      */
     async getProductById(id: number): Promise<Product> {
         try {
+            const token = authService.getToken();
             const response = await fetch(`${API_URL}/products/${id}`, {
                 headers: {
+                    'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 }
             });

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { productService } from "../services/productService";
 import type { Product, CreateProductData } from "../types";
@@ -9,6 +9,7 @@ import { ProductFormModal } from "../components";
 export const Products: React.FC = () => {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
@@ -28,6 +29,16 @@ export const Products: React.FC = () => {
     useEffect(() => {
         loadProducts();
     }, [currentPage]);
+
+    // Manejar mensaje de eliminación exitosa
+    useEffect(() => {
+        if (location.state?.message) {
+            setSuccessMessage(location.state.message);
+            // Limpiar el state para que no se muestre al recargar
+            window.history.replaceState({}, document.title);
+            setTimeout(() => setSuccessMessage(null), 3000);
+        }
+    }, [location]);
 
     const loadProducts = async () => {
         setLoading(true);
@@ -229,8 +240,8 @@ export const Products: React.FC = () => {
                                     whileTap={{ scale: 0.95 }}
                                     onClick={() => setViewMode('table')}
                                     className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${viewMode === 'table'
-                                            ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md'
-                                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                                        ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md'
+                                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                         }`}
                                 >
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -244,8 +255,8 @@ export const Products: React.FC = () => {
                                     whileTap={{ scale: 0.95 }}
                                     onClick={() => setViewMode('cards')}
                                     className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${viewMode === 'cards'
-                                            ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md'
-                                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                                        ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md'
+                                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                                         }`}
                                 >
                                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -344,8 +355,8 @@ export const Products: React.FC = () => {
                                                         </td>
                                                         <td className="px-6 py-4">
                                                             <span className={`px-3 py-1 rounded-full text-xs font-medium ${product.stock > 50 ? 'bg-green-100 text-green-700' :
-                                                                    product.stock > 20 ? 'bg-yellow-100 text-yellow-700' :
-                                                                        'bg-red-100 text-red-700'
+                                                                product.stock > 20 ? 'bg-yellow-100 text-yellow-700' :
+                                                                    'bg-red-100 text-red-700'
                                                                 }`}>
                                                                 {product.stock} unidades
                                                             </span>
@@ -470,8 +481,8 @@ export const Products: React.FC = () => {
                                                 {/* Stock & Actions */}
                                                 <div className="flex items-center justify-between pt-3 border-t border-gray-200">
                                                     <span className={`px-3 py-1 rounded-full text-xs font-medium ${product.stock > 50 ? 'bg-green-100 text-green-700' :
-                                                            product.stock > 20 ? 'bg-yellow-100 text-yellow-700' :
-                                                                'bg-red-100 text-red-700'
+                                                        product.stock > 20 ? 'bg-yellow-100 text-yellow-700' :
+                                                            'bg-red-100 text-red-700'
                                                         }`}>
                                                         Stock: {product.stock}
                                                     </span>
@@ -557,8 +568,8 @@ export const Products: React.FC = () => {
                                                 whileTap={{ scale: 0.9 }}
                                                 onClick={() => setCurrentPage(pageNumber)}
                                                 className={`w-10 h-10 rounded-lg font-medium transition-all ${currentPage === pageNumber
-                                                        ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
-                                                        : 'bg-white border-2 border-gray-200 text-gray-600 hover:border-purple-300'
+                                                    ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg'
+                                                    : 'bg-white border-2 border-gray-200 text-gray-600 hover:border-purple-300'
                                                     }`}
                                             >
                                                 {pageNumber}
